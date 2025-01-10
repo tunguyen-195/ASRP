@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- 
+  Nếu bạn có "base.html" sẵn, bạn đặt nội dung bên trong block content.
+  Nếu dự án bạn không dùng base.html, xóa dòng extends và block, 
+  rồi dùng thẳng <html> ... </html> cũng được.
+-->
+
+<!-- BANNER -->
+<section class="banner">
+  <div class="banner-overlay">
+    <div class="banner-content">
+      <h1 class="banner-title">PHÒNG CHỐNG LỪA ĐẢO TRÊN KHÔNG GIAN MẠNG</h1>
+      <p class="banner-subtitle">Nền tảng tiếp nhận và xử lý các báo cáo về lừa đảo trên không gian mạng</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <h2>Các công cụ nổi bật</h2>
+    <div class="features-grid">
+      <!-- Card 1 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Kiểm tra địa chỉ IP</h3>
+        <p>Công cụ giúp tra cứu, phân tích thông tin địa chỉ IP, quốc gia, ISP.</p>
+        <a href="#" class="btn">Truy cập</a>
+      </div>
+      <!-- Card 2 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-flag"></i>
+        </div>
+        <h3>Báo cáo lừa đảo</h3>
+        <p>Tích hợp tính năng gửi báo cáo khi nghi ngờ lừa đảo, hỗ trợ cảnh báo kịp thời.</p>
+        <a href="{{ url_for('report.submit_report') }}" class="btn">Truy cập</a>
+      </div>
+      <!-- Card 3 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h3>Tra cứu tên miền</h3>
+        <p>Kiểm tra thông tin, cảnh báo về độ an toàn hoặc nguy cơ của tên miền website.</p>
+        <a href="#" class="btn">Truy cập</a>
+      </div>
+      <!-- Card 4 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <h3>Kiểm tra lỗ hổng</h3>
+        <p>Phát hiện lỗ hổng bảo mật phổ biến trên máy chủ, website.</p>
+        <a href="#" class="btn">Truy cập</a>
+      </div>
+
+       <!-- Card 5 (Chỉ hiển thị với admin) -->
+       {% if current_user.is_authenticated and current_user.role == 'admin' %}
+       <div class="feature-card">
+         <div class="feature-icon">
+           <i class="fas fa-tools"></i>
+         </div>
+         <h3>Quản lý hệ thống</h3>
+         <p>Truy cập vào trang quản trị hệ thống dành riêng cho quản trị viên.</p>
+         <a href="/admin" class="btn">Truy cập</a>
+       </div>
+       {% endif %}
+
+       <!-- Card 6 (Chỉ hiển thị với cảnh sát) -->
+       {% if current_user.is_authenticated and current_user.role == 'police_officer' %}
+       <div class="feature-card">
+         <div class="feature-icon">
+           <i class="fas fa-clipboard-list"></i>
+         </div>
+         <h3>Quản lý báo cáo</h3>
+         <p>Truy cập vào trang làm việc để theo dõi và xử lý các báo cáo được giao.</p>
+         <a href="{{ url_for('police_officer.view_reports') }}" class="btn">Truy cập</a>
+       </div>
+       {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-container">
+    <p>© 2024 - Trung tâm Không gian mạng - <a href="https://khonggianmang.vn/">khonggianmang.vn</a></p>
+    <p>
+      Liên hệ: <a href="mailto:contact@example.com">contact@example.com</a> | 
+      Hotline: <a href="tel:+8400000000">+84 0000 0000</a>
+    </p>
+  </div>
+</footer>
+
+{% endblock %}

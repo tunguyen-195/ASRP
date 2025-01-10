@@ -1,0 +1,51 @@
+alembic==1.10.4
+blinker==1.5
+click==8.1.8
+dnspython==2.4.2
+email-validator==2.0.0.post2
+Flask==2.2.5
+Flask-Admin==1.6.0
+Flask-Login==0.6.3
+Flask-Migrate==4.0.4
+Flask-Script==2.0.6
+Flask-SQLAlchemy==3.0.4
+Flask-WTF==1.2.2
+greenlet==2.0.2
+idna==3.4
+importlib-metadata==6.6.0
+itsdangerous==2.1.2
+Jinja2==3.1.2
+Mako==1.2.4
+MarkupSafe==2.1.3
+python-dotenv==1.0.0
+SQLAlchemy==2.0.19
+typing_extensions==4.7.1
+Werkzeug==2.2.3
+WTForms==3.0.1
+zipp==3.15.0
+
+
+# Flask==2.2.5
+# Flask-Admin==1.6.0
+# Flask-Login==0.6.3
+# Flask-Migrate==4.0.4
+# Flask-Script==2.0.6
+# Flask-SQLAlchemy==3.0.4
+# Flask-WTF==1.2.2
+# SQLAlchemy==1.4.48
+# WTForms==3.0.1
+# Werkzeug==2.2.3
+
+# Thay thế code trong Flask-Admin nếu muốn giữ SQLAlchemy 2.x:
+# Nếu bạn cần sử dụng SQLAlchemy 2.x, bạn phải chỉnh sửa thủ công code của Flask-Admin. Cụ thể, bạn cần sửa file:
+
+# /Users/nguyenminhtu/Workspace/Freelance/Web_report_9.2024_D10_DATN/ASRP/venv/lib/python3.9/site-packages/flask_admin/contrib/sqla/tools.py
+# Thay đổi dòng:
+
+# from sqlalchemy.ext.associationproxy import ASSOCIATION_PROXY
+# Thành:
+
+# try:
+#     from sqlalchemy.ext.associationproxy import ASSOCIATION_PROXY
+# except ImportError:
+#     ASSOCIATION_PROXY = None

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/submit_report.css') }}">
+
+<div class="container report-container">
+    <h2>Gửi Báo Cáo</h2>
+    <form id="report-form" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label class="form-label">{{ form.title.label }}</label>
+            {{ form.title(size=32, class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">{{ form.description.label }}</label>
+            <small class="text-muted">(<i>Hãy mô tả chi tiết thông tin liên quan đến trường hợp mà bạn gặp phải để gửi các thông tin cần thiết tới cho lực lượng chức năng. Bạn có thể tải lên hình ảnh, dẫn chứng trên kho lưu trữ trực tuyến như: Google Drive, OneDrive, Dropbox, file.io,... Nếu những file này lớn hơn 20MB. Sau đó chia sẻ đường dẫn cho chúng tôi tại đây.</i>)</small>
+            {{ form.description(rows=5, class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">{{ form.latitude.label }}</label>
+            {{ form.latitude(class="form-control", readonly=True) }}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">{{ form.longitude.label }}</label>
+            {{ form.longitude(class="form-control", readonly=True) }}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">{{ form.area_id.label }}</label>
+            {{ form.area_id(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">{{ form.assigned_officer_id.label }}</label>
+            {{ form.assigned_officer_id(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">{{ form.attachments.label }}</label>
+            <small class="text-muted">(<i>Đối với những tệp có dung lượng nhỏ hơn 20MB, bạn có thể tải trực tiếp lên.</i>)</small>
+            {{ form.attachments(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary", id="submit-button") }}
+        </div>
+    </form>
+</div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<script id="flash-messages" type="application/json">
+    {{ get_flashed_messages(with_categories=true) | tojson }}
+</script>
+
+
+{% endblock %}

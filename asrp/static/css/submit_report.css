@@ -1,0 +1,78 @@
+body {
+    background-color: #f8fafc;
+    color: #333333;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.report-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.report-container h2 {
+    color: #062141;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.report-container .form-group {
+    margin-bottom: 20px;
+}
+
+.report-container .form-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: inline-block;
+    color: #062141;
+}
+
+.report-container .form-control {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 12px;
+    width: 100%;
+    font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.report-container .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.report-container .btn-primary {
+    background-color: #062141;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+.report-container .btn-primary:hover {
+    background-color: #103770;
+    transform: translateY(-2px);
+}
+
+.report-container .error-message {
+    color: #ff4d4d;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.report-container .form-group .hint {
+    font-size: 13px;
+    color: #666666;
+    margin-top: 5px;
+}

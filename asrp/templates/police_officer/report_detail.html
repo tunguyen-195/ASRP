@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Link đến file CSS riêng cho trang này -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report_detail.css') }}">
+
+<!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="report-detail-container">
+    <!-- Header -->
+    <div class="report-header">
+        <h2>Chi tiết báo cáo</h2>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="report-content">
+        <!-- Thông tin chi tiết báo cáo -->
+        <div class="report-info">
+            <h3>{{ report.title }}</h3>
+
+            <p>
+                <span>Mô tả:</span>
+                {{ report.description }}
+            </p>
+            <p>
+                <span>Trạng thái:</span>
+                {{ report.status }}
+            </p>
+            <p>
+                <span>Người gửi:</span>
+                {{ report.user.full_name }}
+            </p>
+            <p>
+                <span>Email:</span>
+                {{ report.user.email }}
+            </p>
+            <p>
+                <span>Số điện thoại:</span>
+                {{ report.user.phone_number }}
+            </p>
+            <p>
+                <span>Khu vực:</span>
+                {{ report.area.name }}
+            </p>
+            <p>
+                <span>Ngày gửi:</span>
+                {{ report.created_at.strftime('%Y-%m-%d') }}
+            </p>
+        </div>
+
+        <!-- Form to update report status -->
+        <form id="status-update-form" method="post" action="{{ url_for('police_officer.update_report_status', report_id=report.id) }}">
+            <label for="status">Thay đổi trạng thái:</label>
+            <select name="status" id="status">
+                <option value="new" {% if report.status == 'new' %}selected{% endif %}>Mới</option>
+                <option value="in_progress" {% if report.status == 'in_progress' %}selected{% endif %}>Đang xử lý</option>
+                <option value="closed" {% if report.status == 'closed' %}selected{% endif %}>Đã đóng</option>
+            </select>
+            <button type="submit" class="btn btn-info">Cập nhật</button>
+        </form>
+
+        <!-- Danh sách file đính kèm -->
+        <div class="report-attachments">
+            <h4>File đính kèm:</h4>
+            <ul>
+                {% for attachment in report.attachments %}
+                <li>
+                    <a href="{{ url_for('static', filename=attachment.file_path) }}" target="_blank">
+                        {{ attachment.file_name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('status-update-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this);
+
+    // Send data to the server
+    fetch(this.action, {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => response.text())
+    .then(() => {
+        // Show success popup
+        Swal.fire({
+            icon: "success",
+            title: "Thành công!",
+            text: "Trạng thái báo cáo đã được cập nhật thành công!",
+            confirmButtonText: "OK"
+        }).then(() => {
+            // Redirect back to the previous page
+            window.location.href = document.referrer || "{{ url_for('police_officer.view_reports') }}";
+        });
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        // Handle any errors that occur during the fetch
+    });
+});
+</script>
+
+{% endblock %}

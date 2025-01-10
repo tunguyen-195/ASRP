@@ -1,0 +1,196 @@
+/* Key-Value Pair Styles */
+.list-item {
+  background: #fff;
+  margin: 1%;
+  display: flex;
+  flex: 0 0 100%;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 360px;
+  height: 260px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.list-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.list-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+  text-align: left;
+}
+
+.list-content h2 {
+  font-size: 1em;
+  color: #062141;
+  margin: 0;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-content p {
+  font-size: 1em;
+  margin: 0;
+  color: #555555;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.list-content .key {
+  font-weight: 700;
+  color: #062141;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
+  flex-shrink: 0;
+}
+
+.list-content .value {
+  color: #555555;
+  font-size: 0.95em;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: calc(100% - 90px);
+  display: inline-block;
+}
+
+.list-content .key-value {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+/* Flexbox styles for list */
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+@media all and (min-width: 40em) and (max-width: 60em) {
+  .list-item {
+    flex: 0 0 48%;
+  }
+}
+
+@media all and (min-width: 300px) {
+  .list-item {
+    flex: 0 0 42%;
+  }
+}
+
+/* Button styles */
+.btn-info {
+  background-color: #062141;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.btn-info:hover {
+  background-color: #0a3a5c;
+}
+
+/* Vertical Tabs Styles */
+.nav-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 200px; /* Adjust width as needed */
+  border-right: 1px solid #e6e6e6;
+  margin-right: 20px;
+  padding: 0; /* Remove padding to align with the left edge */
+  position: fixed; /* Fix the nav to the left side */
+  top: 64px; /* Align to the top */
+  left: 0; /* Align to the left */
+  height: 100vh; /* Full height of the viewport */
+  background-color: #062141; /* Primary color */
+}
+
+.nav-item {
+  margin: 0; /* Remove margin to ensure items are flush */
+  height: 120px; /* Set a fixed height for each nav item */
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 0;
+  height: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: #0a3a5c;
+  color: #fff;
+}
+
+.nav-link i {
+  margin-right: 8px;
+  font-size: 1.2em;
+  color: inherit;
+}
+
+/* Container for tab content */
+.tab-content {
+  margin-left: 200px; /* Adjust this to match the width of .nav-tabs */
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f0f4f8; /* Very light shade of the primary color */
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-height: 400px; /* Set a minimum height to ensure uniformity */
+  overflow-y: auto; /* Allow scrolling if content exceeds the height */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  text-align: left;
+  width: calc(100% - 20px); /* Increase width, adjust for margin */
+}
+
+/* Flexbox styles for main container */
+.container {
+  margin-left: 200px; /* Offset by the width of the nav-tabs */
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* Overwrite max-width for containers at min-width 768px */
+@media (min-width: 1200px) {
+  .container,
+  .container-md,
+  .container-sm {
+    max-width: 1200px;
+  }
+}

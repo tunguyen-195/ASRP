@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>ASRP - PHÒNG CHỐNG LỪA ĐẢO TRÊN KHÔNG GIAN MẠNG</title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Google Font (Roboto) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  
+  <!-- Link tới main.css trong static -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <!-- HEADER (Logo + Menu) -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <!-- Thay "logo.png" bằng ảnh có thật -->
+        <a href="{{ url_for('main.index') }}">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo-img" />
+        </a>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li>
+            <a href="{{ url_for('main.index') }}">
+              <i class="fas fa-home"></i>  Trang chủ
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-info-circle"></i>  Giới thiệu
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-tools"></i>  Công cụ
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-envelope"></i>  Liên hệ
+            </a>
+          </li>
+          {% if current_user.is_authenticated %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle">
+                <i class="fas fa-user"></i>  Xin chào, {{ current_user.full_name }}
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">
+                    <i class="fas fa-user-cog"></i>  Tài khoản của tôi
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ url_for('auth.dang_xuat') }}">
+                    <i class="fas fa-sign-out-alt"></i>  Đăng xuất
+                  </a>
+                </li>
+              </ul>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{ url_for('auth.dang_nhap') }}">
+                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+  {% block content %}{% endblock %}
+</body>
+</html>

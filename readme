@@ -1,0 +1,12 @@
+# Xuất biến môi trường FLASK_APP trỏ tới file manage.py:
+- Trên macOS/Linux:
+export FLASK_APP=manage.py
+- Trên Windows (cmd):
+set FLASK_APP=manage.py
+- Trên Windows (PowerShell):
+$env:FLASK_APP = "manage.py"
+
+- Tương tự với lệnh migrate:
+flask db init
+flask db migrate -m "Initial"
+flask db upgrade

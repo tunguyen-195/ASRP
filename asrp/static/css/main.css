@@ -1,0 +1,215 @@
+/* asrp/static/css/main.css */
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  background-color: #f8fafc; /* Background Color */
+}
+
+/* Container chung */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+/* HEADER */
+.header {
+  background-color: #062141; /* Primary Color */
+  padding: 0.75rem 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header .navbar ul li {
+  margin: 0 15px;
+  position: relative;
+}
+
+.header .navbar ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.header .navbar ul li a:hover {
+  color: #007bff; /* Accent Color */
+}
+
+.header .navbar ul li .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header .navbar ul li .dropdown-menu li {
+  margin: 0;
+}
+
+.header .navbar ul li .dropdown-menu li a {
+  display: block;
+  padding: 5px 20px;
+  color: #333;
+  text-decoration: none;
+}
+
+.header .navbar ul li .dropdown-menu li a:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+.header .navbar ul li:hover .dropdown-menu {
+  display: block;
+}
+
+.logo-img {
+  height: 40px; /* tùy chỉnh */
+}
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+.navbar ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  transition: background-color 0.3s;
+}
+.navbar ul li a:hover {
+  background-color: #103770; /* Secondary Color */
+  border-radius: 4px;
+}
+
+/* BANNER */
+.banner {
+  position: relative;
+  background: url("../images/banner.jpg") center/cover no-repeat;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(6, 33, 65, 0.7); /* Primary Color with transparency */
+}
+.banner-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  padding-top: 84px;
+}
+.banner-title {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+.banner-subtitle {
+  font-size: 1rem;
+}
+
+/* FEATURES */
+.features {
+  padding: 2rem 0;
+  background-color: #f8fafc; /* Background Color */
+}
+.features h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #062141; /* Primary Color */
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.feature-card {
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: box-shadow 0.3s;
+}
+.feature-card:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+.feature-icon i {
+  font-size: 2rem;
+  color: #03163c; /* Darker shade of Primary Color */
+  margin-bottom: 0.75rem;
+}
+.feature-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: #062141; /* Primary Color */
+}
+.feature-card p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: #555555; /* Slightly lighter text color */
+}
+.btn {
+  display: inline-block;
+  background-color: #03163c; /* Darker shade of Primary Color */
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.btn:hover {
+  background-color: #103770; /* Secondary Color */
+}
+
+/* FOOTER */
+.footer {
+  background-color: #e9ecef;
+  padding: 1rem 0;
+  margin-top: 2rem;
+}
+.footer-container {
+  text-align: center;
+}
+.footer-container p {
+  margin: 0.3rem 0;
+  color: #555555; /* Slightly lighter text color */
+}
+.footer-container a {
+  color: #03163c; /* Darker shade of Primary Color */
+  text-decoration: none;
+}
+.footer-container a:hover {
+  text-decoration: underline;
+}
