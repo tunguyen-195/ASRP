@@ -6,6 +6,7 @@ from . import report_bp
 from .forms import ReportForm
 from ...extensions import db
 from ...models import Report, Attachment
+from asrpbnbot import send_telegram_message  # Import the function
 
 @report_bp.route('/submit', methods=['GET', 'POST'])
 @login_required
@@ -48,6 +49,27 @@ def submit_report():
                     db.session.add(attachment)
 
             db.session.commit()
+
+            # Send a notification to Telegram
+            if report.latitude and report.longitude:
+                location_info = f"Location: {report.latitude}, {report.longitude}\n"
+                maps_link = f"[View on Google Maps](https://www.google.com/maps/search/?api=1&query={report.latitude},{report.longitude})"
+            else:
+                location_info = "Người báo cáo không cung cấp vị trítrí"
+                maps_link = ""
+
+            message = (
+                f"🔔 *New Report Submitted*\n"
+                f"Title: {report.title}\n"
+                f"Description: {report.description}\n"
+                f"Submitted by: {current_user.full_name} ({current_user.email})\n"
+                f"Phone: {current_user.phone_number}\n"
+                f"Area: {report.area.name}\n"
+                f"{location_info}\n"
+                f"{maps_link}\n"
+                f"Date: {report.date_submitted.strftime('%d/%m/%Y %H:%M:%S')}"
+            )
+            send_telegram_message(message)
 
             # Return JSON response for AJAX requests
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':

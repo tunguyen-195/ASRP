@@ -22,3 +22,7 @@ class ReportForm(FlaskForm):
     latitude = FloatField('Vĩ độ', validators=[Optional()])
     longitude = FloatField('Kinh độ', validators=[Optional()])
     submit = SubmitField('Gửi báo cáo')
+
+class CheckInfoForm(FlaskForm):
+    contact_info = StringField('Email hoặc Số điện thoại', validators=[DataRequired(), Length(max=150)])
+    submit = SubmitField('Kiểm tra')

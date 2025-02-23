@@ -23,6 +23,7 @@ typing_extensions==4.7.1
 Werkzeug==2.2.3
 WTForms==3.0.1
 zipp==3.15.0
+python-telegram-bot requests
 
 
 # Flask==2.2.5
@@ -49,3 +50,4 @@ zipp==3.15.0
 #     from sqlalchemy.ext.associationproxy import ASSOCIATION_PROXY
 # except ImportError:
 #     ASSOCIATION_PROXY = None
+ 

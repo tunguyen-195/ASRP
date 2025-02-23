@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- BANNER -->
+<section class="banner">
+    <div class="banner-overlay">
+      <div class="banner-content">
+        <h1 class="banner-title">PHÒNG CHỐNG LỪA ĐẢO TRÊN KHÔNG GIAN MẠNG</h1>
+        <p class="banner-subtitle">Nền tảng tiếp nhận và xử lý các báo cáo về lừa đảo trên không gian mạng</p>
+      </div>
+    </div>
+  </section>
+<div class="check-info-header">
+    <h2>Kiểm tra Email/Số điện thoại</h2>
+</div>
+<div class="check-info-container">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="fx fx-gap">
+            <div>
+                {{ form.contact_info(class="form-control", placeholder="Search") }}
+            </div>
+            <div id="search-icon">
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          Swal.fire({
+            icon: '{{ 'success' if category == 'success' else 'error' }}',
+            title: 'Thông báo',
+            text: '{{ message }}',
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+            timer: 5000
+          });
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</script>
+{% endblock %} 

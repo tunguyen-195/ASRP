@@ -1,6 +1,6 @@
 from asrp import create_app
 from asrp.extensions import db
-from asrp.models import User, Unit, Area, Report, Attachment, Content, UserArea
+from asrp.models import User, Unit, Area, Report, Attachment, Content, UserArea, LeakedInfo
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 import random
@@ -77,9 +77,19 @@ with app.app_context():
     db.session.commit()
 
     # Tạo khu vực
-    area1 = Area(name='Quận 1', description='Khu vực trung tâm.')
-    area2 = Area(name='Quận 2', description='Khu vực phía đông.')
-    db.session.add_all([area1, area2])
+    # Bỏ quận 1 và quận 2, thêm các khu vực tương ứng với Bắc Ninh
+    # Thêm tỉnh Bắc Ninh và các huyện
+    area1 = Area(name='Thành phố Bắc Ninh', description='Thành phố Bắc Ninh.')
+    area2 = Area(name='Huyện Gia Bình', description='Huyện Gia Bình, Bắc Ninh.')
+    area3 = Area(name='Huyện Lương Tài', description='Huyện Lương Tài, Bắc Ninh.')
+    area4 = Area(name='Huyện Quế Võ', description='Huyện Quế Võ, Bắc Ninh.')
+    area5 = Area(name='Huyện Tiên Du', description='Huyện Tiên Du, Bắc Ninh.')
+    area6 = Area(name='Huyện Yên Phong', description='Huyện Yên Phong, Bắc Ninh.')
+    area7 = Area(name='Huyện Thuận Thành', description='Huyện Thuận Thành, Bắc Ninh.')
+    area8 = Area(name='Huyện Từ Sơn', description='Huyện Từ Sơn, Bắc Ninh.')
+    area9 = Area(name='Huyện Bắc Ninh', description='Huyện Bắc Ninh.')
+
+    db.session.add_all([area1, area2, area3, area4, area5, area6, area7, area8, area9])
     db.session.commit()
 
     # Gán cảnh sát vào khu vực
@@ -111,6 +121,43 @@ with app.app_context():
         author_id=admin.id
     )
     db.session.add_all([content1, content2])
+    db.session.commit()
+
+    # Thêm dữ liệu seed cho LeakedInfo
+    leaked_infos = [
+        LeakedInfo(contact_info='leaked1@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked2@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked3@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked4@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked5@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked6@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked7@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked8@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked9@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked10@example.com', info_type='email'),
+        LeakedInfo(contact_info='0123456789', info_type='phone'),
+        LeakedInfo(contact_info='0987654321', info_type='phone'),
+        LeakedInfo(contact_info='0912345678', info_type='phone'),
+        LeakedInfo(contact_info='0908765432', info_type='phone'),
+        LeakedInfo(contact_info='0934567890', info_type='phone'),
+        LeakedInfo(contact_info='0945678901', info_type='phone'),
+        LeakedInfo(contact_info='0956789012', info_type='phone'),
+        LeakedInfo(contact_info='0967890123', info_type='phone'),
+        LeakedInfo(contact_info='0978901234', info_type='phone'),
+        LeakedInfo(contact_info='0989012345', info_type='phone'),
+        LeakedInfo(contact_info='leaked11@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked12@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked13@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked14@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked15@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked16@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked17@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked18@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked19@example.com', info_type='email'),
+        LeakedInfo(contact_info='leaked20@example.com', info_type='email'),
+    ]
+
+    db.session.add_all(leaked_infos)
     db.session.commit()
 
     print("Dữ liệu mẫu đã được tạo thành công!")

@@ -168,3 +168,10 @@ class Content(db.Model):
         nullable=False
     )
     # => "user.authored_contents" via backref='author'
+
+class LeakedInfo(db.Model):
+    __tablename__ = 'leaked_info'
+
+    id = db.Column(db.Integer, primary_key=True)
+    contact_info = db.Column(db.String(150), unique=True, nullable=False)
+    info_type = db.Column(db.Enum('email', 'phone'), nullable=False)
