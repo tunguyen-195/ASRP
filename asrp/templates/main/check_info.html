@@ -9,25 +9,26 @@
       </div>
     </div>
   </section>
-<div class="check-info-header">
-    <h2>Kiểm tra Email/Số điện thoại</h2>
+<div class="check-info-page">
+  <div class="check-info-header">
+      <h2>Kiểm tra Email/Số điện thoại</h2>
+  </div>
+  <div class="check-info-container">
+      <form method="POST">
+          {{ form.hidden_tag() }}
+          <div class="fx fx-gap">
+              <div>
+                  {{ form.contact_info(class="form-control", placeholder="Search") }}
+              </div>
+              <div id="search-icon">
+                  <button type="submit">
+                      <i class="fas fa-search"></i>
+                  </button>
+              </div>
+          </div>
+      </form>
+  </div>
 </div>
-<div class="check-info-container">
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div class="fx fx-gap">
-            <div>
-                {{ form.contact_info(class="form-control", placeholder="Search") }}
-            </div>
-            <div id="search-icon">
-                <button type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
-
 <script>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}

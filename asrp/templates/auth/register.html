@@ -1,28 +1,49 @@
-{% extends "base.html" %} {% block content %}
-
-<h2>Đăng ký</h2>
-<form method="POST" action="">
-  {{ form.hidden_tag() }}
-  <p>
-    {{ form.full_name.label }}<br />
-    {{ form.full_name(size=32) }}
-  </p>
-  <p>
-    {{ form.email.label }}<br />
-    {{ form.email(size=32) }}
-  </p>
-  <p>
-    {{ form.phone_number.label }}<br />
-    {{ form.phone_number(size=20) }}
-  </p>
-  <p>
-    {{ form.password.label }}<br />
-    {{ form.password(size=32) }}
-  </p>
-  <p>
-    {{ form.confirm_password.label }}<br />
-    {{ form.confirm_password(size=32) }}
-  </p>
-  <p>{{ form.submit() }}</p>
-</form>
+{% extends "base.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">Đăng ký tài khoản</h2>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.full_name.label(class="form-label") }}
+                {{ form.full_name(class="form-control", placeholder="Nhập họ và tên") }}
+                {% for error in form.full_name.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control", placeholder="Nhập email") }}
+                {% for error in form.email.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.phone_number.label(class="form-label") }}
+                {{ form.phone_number(class="form-control", placeholder="Nhập số điện thoại") }}
+                {% for error in form.phone_number.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control", placeholder="Nhập mật khẩu") }}
+                {% for error in form.password.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.confirm_password.label(class="form-label") }}
+                {{ form.confirm_password(class="form-control", placeholder="Xác nhận mật khẩu") }}
+                {% for error in form.confirm_password.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                {{ form.submit(class="btn btn-primary btn-block") }}
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

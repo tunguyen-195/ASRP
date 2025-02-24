@@ -26,8 +26,6 @@ def dang_nhap():
     
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Đăng nhập thành công 11111.', 'success')
-        # Tìm user theo email
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user)
@@ -36,9 +34,7 @@ def dang_nhap():
             return redirect(next_page or url_for('main.index'))
         else:
             flash('Thông tin đăng nhập không chính xác.', 'danger')
-    flash('Đăng nhập thành công 22222.', 'success')
     
-    # Nếu GET hoặc lỗi xác thực => render template kèm form (CSRF, v.v.)
     return render_template("auth/animated_login.html", form=form)
 
 
@@ -53,16 +49,20 @@ def dang_ky():
     
     form = RegisterForm()
     if form.validate_on_submit():
-        new_user = User(
-            full_name=form.full_name.data,
-            email=form.email.data,
-            phone_number=form.phone_number.data
-        )
-        new_user.set_password(form.password.data)
-        db.session.add(new_user)
-        db.session.commit()
-        flash('Đăng ký thành công! Vui lòng đăng nhập.', 'success')
-        return redirect(url_for('auth.dang_nhap'))
+        try:
+            new_user = User(
+                full_name=form.full_name.data,
+                email=form.email.data,
+                phone_number=form.phone_number.data
+            )
+            new_user.set_password(form.password.data)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Đăng ký thành công! Vui lòng đăng nhập.', 'success')
+            return redirect(url_for('auth.dang_nhap'))
+        except Exception as e:
+            db.session.rollback()
+            flash('Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.', 'danger')
     
     return render_template('auth/register.html', form=form)
 

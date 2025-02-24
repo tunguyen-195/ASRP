@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Thống kê Báo Cáo</h2>
+    <form method="POST" action="{{ url_for('report.report_statistics') }}" class="mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="start_date">Ngày bắt đầu:</label>
+                    <input type="date" name="start_date" class="form-control styled-input">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="end_date">Ngày kết thúc:</label>
+                    <input type="date" name="end_date" class="form-control styled-input">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="status">Trạng thái:</label>
+                    <select name="status" class="form-control styled-input">
+                        <option value="">Tất cả</option>
+                        <option value="new">Mới</option>
+                        <option value="in_progress">Đang xử lý</option>
+                        <option value="closed">Đã đóng</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Lọc</button>
+        </div>
+    </form>
+
+    <div class="text-center mb-4">
+        <form method="POST" action="{{ url_for('report.export_reports') }}">
+            <input type="hidden" name="start_date" value="{{ request.form.get('start_date') }}">
+            <input type="hidden" name="end_date" value="{{ request.form.get('end_date') }}">
+            <input type="hidden" name="status" value="{{ request.form.get('status') }}">
+            <button type="submit" class="btn btn-success">Xuất Excel</button>
+        </form>
+    </div>
+
+    <div class="container-fluid statistics-table" style="margin-top: 10px">
+        <div class="table-row header">
+            <div class="column index">#</div>
+            <div class="wrapper attributes">
+                <div class="wrapper title-comment-module-reporter">
+                    <div class="wrapper title-comment">
+                        <div class="column title">Title</div>
+                        <div class="column comment">Comment</div>
+                    </div>
+                    <div class="wrapper module-reporter">
+                        <div class="column module">Module</div>
+                        <div class="column reporter">Reporter</div>
+                    </div>
+                </div>
+                <div class="wrapper status-owner-severity">
+                    <div class="wrapper status-owner">
+                        <div class="column status">Status</div>
+                        <div class="column owner">Owner</div>
+                    </div>
+                    <div class="column severity">Severity</div>
+                </div>
+            </div>
+            <div class="wrapper icons">
+                <div title="Watch" class="column watch">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </div>
+                <div title="Add comment" class="column add-comment">
+                    <span class="glyphicon glyphicon-comment"></span>
+                </div>
+            </div>
+            <div class="wrapper dates">
+                <div class="column date">Created</div>
+                <div class="column date">Updated</div>
+                <div class="column date">Due</div>
+            </div>
+        </div>
+
+        {% for report in reports %}
+        <div class="table-row">
+            <div class="column index">{{ loop.index }}</div>
+            <div class="wrapper attributes">
+                <div class="wrapper title-comment-module-reporter">
+                    <div class="wrapper title-comment">
+                        <div class="column title">{{ report.title }}</div>
+                        <div class="column comment">{{ report.description }}</div>
+                    </div>
+                    <div class="wrapper module-reporter">
+                        <div class="column module">{{ report.area.name }}</div>
+                        <div class="column reporter">{{ report.user.full_name }}</div>
+                    </div>
+                </div>
+                <div class="wrapper status-owner-severity">
+                    <div class="wrapper status-owner">
+                        <div class="column status"><span class="label label-primary">{{ report.status }}</span></div>
+                        <div class="column owner">{{ report.user.full_name }}</div>
+                    </div>
+                    <div class="column severity">{{ report.severity }}</div>
+                </div>
+            </div>
+            <div class="wrapper icons">
+                <div class="column watch"><span class="glyphicon glyphicon-eye-open active"></span></div>
+                <div class="column add-comment"><span class="glyphicon glyphicon-comment"></span></div>
+            </div>
+            <div class="wrapper dates">
+                <div class="column date">{{ report.date_submitted.strftime('%b-%d, %Y') }}</div>
+                <div class="column date">{{ report.updated_at.strftime('%b-%d, %Y') }}</div>
+                <div class="column date">{{ report.due_date.strftime('%b-%d, %Y') if report.due_date else 'N/A' }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

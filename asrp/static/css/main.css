@@ -225,3 +225,132 @@ footer {
 .footer-container a:hover {
   text-decoration: underline;
 }
+
+/* Additional styles for the statistics page */
+.table-striped {
+    margin-top: 20px;
+}
+
+.thead-dark th {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.btn-primary, .btn-success {
+    margin-top: 10px;
+}
+
+.list-group-item {
+    background-color: #f8f9fa;
+}
+
+.badge-primary {
+    background-color: #007bff;
+}
+
+/* Scoped styles for the statistics table */
+.statistics-table .table-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: no-wrap;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-top: 2px;
+}
+
+.statistics-table .table-row.header {
+    background-color: #FFEEDB;
+    font-weight: bold;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.statistics-table .wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.statistics-table .column {
+    flex-grow: 0;
+    flex-shrink: 0;
+    vertical-align: top;
+}
+
+.statistics-table .index { width: 25px; text-align: center; }
+.statistics-table .title { width: 220px; font-weight: bold; color: #337AB5; }
+.statistics-table .comment { width: 120px; font-style: italic; }
+.statistics-table .module { width: 110px; }
+.statistics-table .reporter { width: 85px; color: #999999; }
+.statistics-table .status { width: 95px; }
+.statistics-table .owner { width: 75px; }
+.statistics-table .severity { width: 80px; }
+.statistics-table .watch, .statistics-table .add-comment { width: 18px; }
+.statistics-table .date { width: 110px; text-align: right; padding-right: 4px; }
+
+.statistics-table .title, .statistics-table .comment {
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 4px;
+}
+
+.statistics-table .glyphicon {
+    color: #DDDDDD;
+}
+
+.statistics-table .glyphicon-eye-open.active {
+    color: blue;
+}
+
+.statistics-table .glyphicon-comment.active {
+    color: #3EBB0D;
+}
+
+.statistics-table .glyphicon:hover {
+    color: #666;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.statistics-table .severity.high { color: red; }
+.statistics-table .severity.medium { color: blue; }
+.statistics-table .severity.low { color: green; }
+
+.styled-input {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 0.375rem 0.75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.styled-input:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control {
+    border-radius: 4px;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}

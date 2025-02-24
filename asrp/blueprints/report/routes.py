@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request, current_app, jsonify
+from flask import render_template, redirect, url_for, flash, request, current_app, jsonify, send_file
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
@@ -7,6 +7,10 @@ from .forms import ReportForm
 from ...extensions import db
 from ...models import Report, Attachment
 from asrpbnbot import send_telegram_message  # Import the function
+from sqlalchemy import func
+import pandas as pd
+from io import BytesIO
+import logging
 
 @report_bp.route('/submit', methods=['GET', 'POST'])
 @login_required
@@ -93,3 +97,75 @@ def submit_report():
 def report_detail(report_id):
     rep = Report.query.get_or_404(report_id)
     return render_template('report/report_detail.html', report=rep)
+
+@report_bp.route('/statistics', methods=['GET', 'POST'])
+@login_required
+def report_statistics():
+    # Fetch reports and apply filters if any
+    query = Report.query
+
+    # Apply filters based on request arguments
+    if request.method == 'POST':
+        start_date = request.form.get('start_date')
+        end_date = request.form.get('end_date')
+        status = request.form.get('status')
+
+        if start_date:
+            query = query.filter(Report.date_submitted >= start_date)
+        if end_date:
+            query = query.filter(Report.date_submitted <= end_date)
+        if status:
+            query = query.filter(Report.status == status)
+
+    reports = query.all()
+
+    # Calculate statistics
+    total_reports = len(reports)
+    reports_by_status = db.session.query(Report.status, func.count(Report.id)).group_by(Report.status).all()
+
+    return render_template('report/statistics.html', reports=reports, total_reports=total_reports, reports_by_status=reports_by_status)
+
+@report_bp.route('/export_reports', methods=['POST'])
+@login_required
+def export_reports():
+    # Fetch reports based on filters
+    query = Report.query
+    start_date = request.form.get('start_date')
+    end_date = request.form.get('end_date')
+    status = request.form.get('status')
+
+    if start_date:
+        query = query.filter(Report.date_submitted >= start_date)
+    if end_date:
+        query = query.filter(Report.date_submitted <= end_date)
+    if status:
+        query = query.filter(Report.status == status)
+
+    reports = query.all()
+
+    # Log the number of reports fetched
+    logging.info(f"Number of reports fetched: {len(reports)}")
+
+    # Create a DataFrame
+    data = [{
+        'Title': report.title,
+        'Description': report.description,
+        'Status': report.status,
+        'Date Submitted': report.date_submitted.strftime('%Y-%m-%d %H:%M:%S'),
+        'Area': report.area.name,
+        'User': report.user.full_name
+    } for report in reports]
+
+    # Log the data being written to the DataFrame
+    logging.info(f"Data being written to Excel: {data}")
+
+    df = pd.DataFrame(data)
+
+    # Export to Excel
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Reports')
+    writer.close()
+    output.seek(0)
+
+    return send_file(output, download_name='reports.xlsx', as_attachment=True)

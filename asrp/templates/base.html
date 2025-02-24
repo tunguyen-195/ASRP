@@ -70,11 +70,32 @@
                 <i class="fas fa-sign-in-alt"></i> Đăng nhập
               </a>
             </li>
+            <li>
+              <a href="{{ url_for('auth.dang_ky') }}">
+                <i class="fas fa-user-plus"></i> Đăng ký
+              </a>
+            </li>
           {% endif %}
         </ul>
       </nav>
     </div>
   </header>
   {% block content %}{% endblock %}
+  <script>
+    // Display flash messages as SweetAlert2 popups
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          Swal.fire({
+            icon: '{{ 'success' if category == 'success' else 'error' }}',
+            title: 'Thông báo',
+            text: '{{ message }}',
+            showConfirmButton: true,
+            timer: 5000
+          });
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </script>
 </body>
 </html>

@@ -72,6 +72,18 @@
          <a href="{{ url_for('police_officer.view_reports') }}" class="btn">Truy cập</a>
        </div>
        {% endif %}
+
+       <!-- Card for Statistics Report (Visible only to admin and police_officer) -->
+       {% if current_user.is_authenticated and (current_user.role == 'admin' or current_user.role == 'police_officer') %}
+       <div class="feature-card">
+         <div class="feature-icon">
+           <i class="fas fa-chart-bar"></i>
+         </div>
+         <h3>Báo cáo Thống kê</h3>
+         <p>Xem và phân tích thống kê các báo cáo đã gửi.</p>
+         <a href="{{ url_for('report.report_statistics') }}" class="btn">Truy cập</a>
+       </div>
+       {% endif %}
     </div>
   </div>
 </section>
@@ -79,7 +91,7 @@
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container footer-container">
-    <p>© 2024 - Phòng ANM và PCTP CNC Công an tỉnh Bắc NinhNinh - <a href="https://pa05bacninh .exampleexample/">khonggianmang.vn</a></p>
+    <p>© 2024 - Phòng ANM và PCTP CNC Công an tỉnh Bắc Ninh - <a href="https://pa05bacninh.example/">khonggianmang.vn</a></p>
     <p>
       Liên hệ: <a href="mailto:contact@example.com">contact@example.com</a> | 
       Hotline: <a href="tel:+8400000000">+84 0000 0000</a>
