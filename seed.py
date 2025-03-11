@@ -105,6 +105,10 @@ with app.app_context():
             area_id=random.choice([area1.id, area2.id]),
             title=f'Lừa đảo {i}',
             description=f'Chi tiết vụ lừa đảo {i}',
+            latitude=random.uniform(10.0, 20.0),  # Example latitude
+            longitude=random.uniform(100.0, 110.0),  # Example longitude
+            status='new',  # Initial status
+            assigned_officer_id=random.choice([po1.id, po2.id])  # Randomly assign an officer
         )
         db.session.add(r)
     db.session.commit()

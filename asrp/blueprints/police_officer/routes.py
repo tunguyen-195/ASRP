@@ -66,11 +66,23 @@ def update_report_status(report_id):
         return redirect(url_for('police_officer.view_reports'))
 
     new_status = request.form.get('status')
-    if new_status in ['new', 'in_progress', 'closed']:
-        report.status = new_status
-        db.session.commit()
-        flash('Trạng thái báo cáo đã được cập nhật thành công.', 'success')
+    valid_status_transitions = {
+        'new': ['in_progress'],
+        'in_progress': ['closed'],
+        'closed': []
+    }
+
+    if new_status in valid_status_transitions.get(report.status, []):
+        try:
+            report.status = new_status
+            db.session.commit()
+            flash('Trạng thái báo cáo đã được cập nhật thành công.', 'success')
+            current_app.logger.info(f"Report {report_id} status updated to {new_status} by {current_user.id}")
+        except Exception as e:
+            db.session.rollback()
+            flash('Đã xảy ra lỗi khi cập nhật trạng thái báo cáo.', 'danger')
+            current_app.logger.error(f"Error updating report {report_id} status: {e}")
     else:
-        flash('Trạng thái không hợp lệ.', 'danger')
+        flash('Trạng thái không hợp lệ hoặc không thể chuyển đổi.', 'danger')
 
     return redirect(request.referrer or url_for('police_officer.report_detail', report_id=report_id))

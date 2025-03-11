@@ -76,6 +76,18 @@
          <a href="{{ url_for('report.report_statistics') }}" class="btn">Truy cập</a>
        </div>
        {% endif %}
+
+       <!-- Card for My Reports (Visible only to authenticated users) -->
+       {% if current_user.is_authenticated %}
+       <div class="feature-card">
+         <div class="feature-icon">
+           <i class="fas fa-file-alt"></i>
+         </div>
+         <h3>Báo Cáo Của Tôi</h3>
+         <p>Xem và theo dõi trạng thái các báo cáo của bạn.</p>
+         <a href="{{ url_for('report.my_reports') }}" class="btn">Truy cập</a>
+       </div>
+       {% endif %}
     </div>
   </div>
 </section>

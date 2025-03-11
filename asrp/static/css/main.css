@@ -457,3 +457,15 @@ footer {
 .auth-form .register-form {
   display: none;
 }
+
+.statistics-table .column {
+  padding: 10px;
+  text-align: left;
+  color: #333; /* Ensure all columns have the same text color */
+  background-color: #f9f9f9; /* Ensure all columns have the same background color */
+  border-bottom: 1px solid #ddd; /* Consistent border for all columns */
+}
+
+.statistics-table .column.reporter {
+  /* Remove any specific styles that differ from other columns */
+}

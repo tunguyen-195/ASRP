@@ -67,7 +67,7 @@
             <ul>
                 {% for attachment in report.attachments %}
                 <li>
-                    <a href="{{ url_for('static', filename=attachment.file_path) }}" target="_blank">
+                    <a href="{{ url_for('report.download_attachment', report_id=report.id, filename=attachment.file_name) }}" target="_blank">
                         {{ attachment.file_name }}
                     </a>
                 </li>

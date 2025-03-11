@@ -1,6 +1,6 @@
-from flask import render_template, redirect, url_for, flash, request, current_app, jsonify, send_file
+from flask import render_template, redirect, url_for, flash, request, current_app, jsonify, send_file, send_from_directory
 from flask_login import login_required, current_user
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename, safe_join
 import os
 from . import report_bp
 from .forms import ReportForm
@@ -31,28 +31,40 @@ def submit_report():
                 user_id=current_user.id,
                 assigned_officer_id=form.assigned_officer_id.data if form.assigned_officer_id.data != 0 else None
             )
+            logging.info(f"Attempting to add report: {report}")
             db.session.add(report)
             db.session.commit()
+            logging.info(f"Report added with ID: {report.id}")
 
             report_folder = os.path.join(upload_folder, f'report_{report.id}')
             if not os.path.exists(report_folder):
                 os.makedirs(report_folder)
+                logging.info(f"Created folder for report ID {report.id}: {report_folder}")
 
             for file in form.attachments.data:
                 if file:
                     filename = secure_filename(file.filename)
                     file_path = os.path.join(report_folder, filename)
-                    file.save(file_path)
+                    try:
+                        file.save(file_path)
+                        logging.info(f"Saved file {filename} to {file_path}")
 
-                    attachment = Attachment(
-                        report_id=report.id,
-                        file_path=file_path,
-                        file_type=file.content_type.split('/')[0],
-                        file_name=filename
-                    )
-                    db.session.add(attachment)
+                        attachment = Attachment(
+                            report_id=report.id,
+                            file_path=file_path,
+                            file_type=file.content_type.split('/')[0],
+                            file_name=filename
+                        )
+                        db.session.add(attachment)
+                    except Exception as e:
+                        logging.error(f"Error saving file {filename}: {e}")
 
-            db.session.commit()
+            try:
+                db.session.commit()
+                logging.info(f"Attachments added for report ID: {report.id}")
+            except Exception as e:
+                db.session.rollback()
+                logging.error(f"Error committing attachments for report ID {report.id}: {e}")
 
             # Send a notification to Telegram
             if report.latitude and report.longitude:
@@ -84,6 +96,7 @@ def submit_report():
 
         except Exception as e:
             db.session.rollback()  # Rollback in case of error
+            logging.error(f"Error during report submission: {e}")
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return jsonify(success=False, message=str(e)), 500
             else:
@@ -169,3 +182,18 @@ def export_reports():
     output.seek(0)
 
     return send_file(output, download_name='reports.xlsx', as_attachment=True)
+
+@report_bp.route('/attachments/<int:report_id>/<filename>')
+@login_required
+def download_attachment(report_id, filename):
+    # Construct the path to the report's folder
+    report_folder = safe_join(current_app.config['UPLOAD_FOLDER'], f'report_{report_id}')
+    # Serve the file from the directory
+    return send_from_directory(report_folder, filename)
+
+@report_bp.route('/my_reports', methods=['GET'])
+@login_required
+def my_reports():
+    # Query reports submitted by the current user
+    user_reports = Report.query.filter_by(user_id=current_user.id).all()
+    return render_template('report/my_reports.html', reports=user_reports)

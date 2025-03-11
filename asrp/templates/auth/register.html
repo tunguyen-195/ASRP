@@ -7,28 +7,28 @@
             {{ form.hidden_tag() }}
             <div class="form-group">
                 <!-- {{ form.full_name.label(class="form-label") }} -->
-                {{ form.full_name(class="form-control styled-input", placeholder="HHọ và tên") }}
+                {{ form.full_name(class="form-control styled-input", placeholder="Họ và tên") }}
                 {% for error in form.full_name.errors %}
                     <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
             <div class="form-group">
                 <!-- {{ form.email.label(class="form-label") }} -->
-                {{ form.email(class="form-control styled-input", placeholder="EEmail") }}
+                {{ form.email(class="form-control styled-input", placeholder="Email") }}
                 {% for error in form.email.errors %}
                     <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
             <div class="form-group">
                 <!-- {{ form.phone_number.label(class="form-label") }} -->
-                {{ form.phone_number(class="form-control styled-input", placeholder="SSố điện thoại") }}
+                {{ form.phone_number(class="form-control styled-input", placeholder="Số điện thoại") }}
                 {% for error in form.phone_number.errors %}
                     <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
             <div class="form-group">
                 <!-- {{ form.password.label(class="form-label") }} -->
-                {{ form.password(class="form-control styled-input", placeholder="MMật khẩu") }}
+                {{ form.password(class="form-control styled-input", placeholder="Mật khẩu") }}
                 {% for error in form.password.errors %}
                     <div class="text-danger">{{ error }}</div>
                 {% endfor %}
