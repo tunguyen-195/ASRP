@@ -8,9 +8,9 @@ from .blueprints.police_officer import police_officer_bp
 import logging
 from logging.handlers import RotatingFileHandler
 
-# Thêm import
+# Import Flask-Admin and AdminModelView
 from flask_admin import Admin
-from .admin_views import AdminModelView, CustomAdminIndexView  # Tệp chứa lớp AdminModelView đã custom
+from .admin_views import AdminModelView  # Remove CustomAdminIndexView
 from .models import User, Report, Area, Unit  # Import các model cần quản trị
 
 def setup_logging(app):
@@ -65,9 +65,7 @@ def create_app(config_class=Config):
     admin = Admin(
         app,
         name="ASRP Admin",
-        template_mode='bootstrap4',
-        url="/admin",
-        index_view=CustomAdminIndexView()  # Sử dụng lớp CustomAdminIndexView
+        template_mode='bootstrap4'
     )
 
     # Đăng ký các model với Flask-Admin

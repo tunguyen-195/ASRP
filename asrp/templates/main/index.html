@@ -40,14 +40,6 @@
         <a href="{{ url_for('report.submit_report') }}" class="btn">Truy cập</a>
       </div>
       <!-- Card 3 -->
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-user-shield"></i>
-        </div>
-        <h3>Kiểm tra lỗ hổng</h3>
-        <p>Phát hiện lỗ hổng bảo mật phổ biến trên máy chủ, website.</p>
-        <a href="#" class="btn">Truy cập</a>
-      </div>
 
        <!-- Card 4 (Chỉ hiển thị với admin) -->
        {% if current_user.is_authenticated and current_user.role == 'admin' %}

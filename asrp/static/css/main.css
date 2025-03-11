@@ -354,3 +354,106 @@ footer {
     background-color: #0056b3;
     border-color: #004085;
 }
+
+/* Registration Form Styles */
+.register-form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  margin: 0 auto;
+}
+
+.styled-input {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.styled-input:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+/* Scoped Login and Registration Page Styles */
+.auth-page {
+  width: 480px;
+  padding: 5% 0 0;
+  margin: auto;
+}
+
+.auth-form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 480px;
+  margin: 0 auto 100px;
+  padding: 60px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.auth-form h2 {
+  margin-bottom: 30px;
+}
+
+.auth-form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 20px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.auth-form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #007bff;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.auth-form button:hover, .auth-form button:active, .auth-form button:focus {
+  background: #0056b3;
+}
+
+.auth-form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+.auth-form .message a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.auth-form .register-form {
+  display: none;
+}
